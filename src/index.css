@@ -1,0 +1,22 @@
+.item {
+  background-color: lightblue !important;
+  padding: 20px !important;
+  transition: 0.5s !important;
+  cursor: pointer !important;
+}
+
+.item:hover {
+  background-color: lightgreen !important;
+}
+
+.search-btn {
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  transform: translateY(-50%) !important;
+}
+
+mark {
+  background-color: yellow !important;
+  padding: 0 !important;
+}
