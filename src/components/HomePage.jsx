@@ -14,7 +14,7 @@ const HomePage = () => {
   const contactsToDisplay =
     filteredContacts.length > 0 ? filteredContacts : contacts;
   const shouldShowNoResults =
-    searchTerm.trim() !== "" && filteredContacts.length === 0;
+    searchTerm !== "" && filteredContacts.length === 0;
 
   return (
     <Container>

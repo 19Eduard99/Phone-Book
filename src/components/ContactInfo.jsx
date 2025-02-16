@@ -7,10 +7,10 @@ import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router";
 
 const ContactInfo = (props) => {
-  const { name, number, src, position, onHide, index } = props;
+  const { name, number, src, position, onHide, id } = props;
 
   const navigate = useNavigate();
-  const redirect = () => navigate("/edit-contact/" + Number(index + 1));
+  const redirect = () => navigate("/edit-contact/" + id);
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>

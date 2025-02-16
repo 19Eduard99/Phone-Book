@@ -86,31 +86,28 @@ export const contactsSlice = createSlice({
     },
 
     deleteContact: (state, action) => {
+      console.log(action.payload);
+      state.filteredContacts = state.filteredContacts.filter(
+        (contact) => contact.id !== action.payload
+      );
       state.contacts = state.contacts.filter(
         (contact) => contact.id !== action.payload
       );
     },
 
     editContact: (state, action) => {
-      const findContact = state.contacts.find(
-        (contact) => contact.id === action.payload.id
-      );
-
-      findContact.name = action.payload.name;
-      findContact.number = action.payload.number;
-      findContact.position = action.payload.position;
-      findContact.src = action.payload.src;
+      state.contacts = state.contacts.map((contact) => {
+        if (contact.id === action.payload.id) {
+          return { ...contact, ...action.payload };
+        }
+        return contact;
+      });
     },
 
     filterContacts: (state, action) => {
-      const searchTerm = action.payload.toLowerCase();
-      state.filteredContacts = state.contacts.filter((contact) => {
-        return contact.name.toLowerCase().trim().includes(searchTerm.trim());
-      });
-
-      if (state.filteredContacts.length === 0) {
-        return;
-      }
+      state.filteredContacts = state.contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(action.payload.toLowerCase())
+      );
     },
 
     resetFilter: (state) => {

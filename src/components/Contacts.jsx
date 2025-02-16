@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import ContactInfo from "./ContactInfo";
 
-const Contacts = ({ id, name, number, src, position, searchTerm, index }) => {
+const Contacts = ({ id, name, number, src, position, searchTerm }) => {
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
 
@@ -30,7 +30,10 @@ const Contacts = ({ id, name, number, src, position, searchTerm, index }) => {
   return (
     <>
       <ListGroup.Item className="mb-1 item" onClick={() => setModalShow(true)}>
-        <div className="d-flex justify-content-between align-items-center">
+        <div
+          className="d-flex justify-content-between align-items-center"
+          data-id={id}
+        >
           <div className="d-flex align-items-center gap-3">
             <Image
               src={
@@ -42,7 +45,7 @@ const Contacts = ({ id, name, number, src, position, searchTerm, index }) => {
             <div className="d-flex flex-column">
               <p
                 style={{ margin: 0 }}
-                dangerouslySetInnerHTML={{ __html: `Name: ${part}` }}
+                dangerouslySetInnerHTML={{ __html: `Name: ${part.trim()}` }}
               />
             </div>
           </div>
@@ -71,7 +74,7 @@ const Contacts = ({ id, name, number, src, position, searchTerm, index }) => {
         </div>
       </ListGroup.Item>
       <ContactInfo
-        index={index}
+        id={id}
         name={name}
         number={number}
         src={src || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}

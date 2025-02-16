@@ -9,11 +9,10 @@ import Container from "react-bootstrap/esm/Container";
 
 const EditContact = () => {
   const { contacts } = useSelector((state) => state.contacts);
-  const { index } = useParams();
-  const editedContact = contacts.find((_, i) => i + 1 === +index);
+  const { id } = useParams();
+  const editedContact = contacts.find((contact) => contact.id === Number(id));
   const navigate = useNavigate();
   const redirect = () => navigate("/");
-
   const dispatch = useDispatch();
 
   const handleImageChange = (event) => {
