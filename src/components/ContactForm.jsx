@@ -50,7 +50,7 @@ const ContactForm = ({ setIsAddContact }) => {
             <Form.Label>Phone Number: </Form.Label>
             <Form.Control
               name="number"
-              type="number"
+              type="text"
               required
               value={values.number}
               onChange={handleChange}

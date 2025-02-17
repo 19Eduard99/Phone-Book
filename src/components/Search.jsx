@@ -12,9 +12,9 @@ const Search = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setSearchTerm(search));
-      if (search.trim()) {
-        dispatch(filterContacts(search));
+      dispatch(setSearchTerm(search.trim()));
+      if (search) {
+        dispatch(filterContacts(search.trim()));
       } else {
         dispatch(resetFilter());
       }

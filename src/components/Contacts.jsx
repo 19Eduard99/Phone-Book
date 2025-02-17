@@ -10,23 +10,24 @@ const Contacts = ({ id, name, number, src, position, searchTerm }) => {
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
 
-  const insertMark = (str, pos, len) => {
+  const highlightText = (text, searchTerm) => {
+    if (!searchTerm) return text;
+
+    const lowerText = text.toLowerCase();
+    const lowerSearch = searchTerm.toLowerCase();
+    const index = lowerText.indexOf(lowerSearch);
+
+    if (index === -1) return text;
+
     return (
-      str.slice(0, pos) +
-      "<mark>" +
-      str.slice(pos, pos + len) +
-      "</mark>" +
-      str.slice(pos + len)
+      <>
+        {text.substring(0, index)}
+        <mark>{text.substring(index, index + searchTerm.length)}</mark>
+        {text.substring(index + searchTerm.length)}
+      </>
     );
   };
 
-  const part = searchTerm
-    ? insertMark(
-        name,
-        name.toLowerCase().indexOf(searchTerm.toLowerCase()),
-        searchTerm.length
-      )
-    : name;
   return (
     <>
       <ListGroup.Item className="mb-1 item" onClick={() => setModalShow(true)}>
@@ -43,23 +44,21 @@ const Contacts = ({ id, name, number, src, position, searchTerm }) => {
               style={{ width: "60px", height: "60px", objectFit: "cover" }}
             />
             <div className="d-flex flex-column">
-              <p
-                style={{ margin: 0 }}
-                dangerouslySetInnerHTML={{ __html: `Name: ${part.trim()}` }}
-              />
+              <p style={{ margin: 0 }}>
+                Name: {highlightText(name, searchTerm)}
+              </p>
             </div>
           </div>
 
           <div className="d-flex gap-3">
-            <Button
-              variant="success"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.location.href = `tel:${number}`;
-              }}
+            <a
+              href={`tel:${number}`}
+              onClick={(e) => e.stopPropagation()}
+              className="btn btn-success d-flex align-items-center justify-content-center"
+              style={{ width: "40px", height: "40px", borderRadius: "5px" }}
             >
               <i className="bi bi-telephone-fill"></i>
-            </Button>
+            </a>
 
             <Button
               variant="danger"
@@ -67,6 +66,7 @@ const Contacts = ({ id, name, number, src, position, searchTerm }) => {
                 e.stopPropagation();
                 dispatch(deleteContact(id));
               }}
+              style={{ width: "40px", height: "40px", borderRadius: "5px" }}
             >
               <i className="bi bi-trash"></i>
             </Button>

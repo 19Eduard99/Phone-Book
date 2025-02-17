@@ -41,15 +41,14 @@ const ContactInfo = (props) => {
         </Container>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "space-between" }}>
-        <Button
-          variant="success"
-          onClick={(e) => {
-            e.stopPropagation();
-            window.location.href = `tel:${number}`;
-          }}
+        <a
+          href={`tel:${number}`}
+          onClick={(e) => e.stopPropagation()}
+          className="btn btn-success d-flex align-items-center justify-content-center"
+          style={{ borderRadius: "5px" }}
         >
           Call
-        </Button>
+        </a>
 
         <div style={{ display: "flex", gap: "10px" }}>
           <Button variant="warning" onClick={redirect}>
